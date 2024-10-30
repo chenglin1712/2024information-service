@@ -52,8 +52,8 @@
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
       }
 
-      /* AI介紹區塊 */
-      .ai-section {
+      /* 通用區段樣式 */
+      .section {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -62,7 +62,7 @@
         padding: 0 20px;
       }
 
-      .ai-content {
+      .content {
         max-width: 800px;
         text-align: left;
         opacity: 0;
@@ -71,19 +71,20 @@
       }
 
       /* 滾動顯示效果 */
-      .ai-content.show {
+      .content.show {
         opacity: 1;
         transform: translateY(0); /* 回到正常位置 */
         animation: fadeInSlideUp 2s ease-out forwards;
       }
 
-      .ai-content h2 {
+      /* 標題和段落樣式 */
+      .content h2 {
         font-size: 3rem;
         margin: 0 0 30px; /* 增加標題與段落的間隔 */
         line-height: 1.2;
       }
 
-      .ai-content p {
+      .content p {
         font-size: 1.25rem;
         line-height: 1.8;
         margin-top: 10px;
@@ -97,14 +98,23 @@
     </section>
 
     <!-- AI介紹區塊 -->
-    <section class="ai-section" id="ai-section">
-      <div class="ai-content">
+    <section class="section" id="ai-section">
+      <div class="content ai-content">
         <h2>什麼是 AI 人工智慧？</h2>
         <p>
-          一種可以「學習」和「思考」的電腦技術。它讓電腦可以像人一樣處理一些特別的工作，<br />
-          例如：認出圖片裡的動物、跟我們聊天對話，甚至可以幫助醫生診斷疾病。<br />
+          一種可以「學習」和「思考」的電腦技術。它讓電腦可以像人一樣處理一些特別的工作，例如：認出圖片裡的動物、跟我們聊天對話，甚至可以幫助醫生診斷疾病。<br />
           AI的目標就是幫助人們更輕鬆地完成一些任務，讓生活變得更方便！
         </p>
+      </div>
+    </section>
+
+    <!-- AI在日常生活中的應用區塊 -->
+    <section class="section" id="ai-application-section">
+      <div class="content ai-application-content">
+        <h2>AI在日常生活中的應用</h2>
+        <p>語音助理：Apple - Siri</p>
+        <p>導航地圖：Google地圖，利用AI來計算最快的路線，讓你更快到達目的地。</p>
+        <p>智能攝影機：智能攝影機，可以分辨出人或寵物，比如誰進來了、誰出去了。</p>
       </div>
     </section>
 
@@ -112,11 +122,16 @@
       // 檢測滾動到指定區塊時顯示動畫效果
       window.addEventListener("scroll", function () {
         var aiContent = document.querySelector(".ai-content");
+        var aiApplicationContent = document.querySelector(".ai-application-content");
         var aiSection = document.getElementById("ai-section").getBoundingClientRect().top;
+        var aiApplicationSection = document.getElementById("ai-application-section").getBoundingClientRect().top;
 
-        // 檢查區段位置是否進入視窗
-        if (aiSection < window.innerHeight - 100) {
+        // 當區段進入視窗稍微靠下的位置就觸發動畫
+        if (aiSection < window.innerHeight - 150) {
           aiContent.classList.add("show");
+        }
+        if (aiApplicationSection < window.innerHeight - 150) {
+          aiApplicationContent.classList.add("show");
         }
       });
     </script>
