@@ -58,8 +58,12 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
-        background-color: rgb(152, 105, 76);
         padding: 0 20px;
+      }
+
+      .ai-section,
+      .ai-application-section {
+        background-color: rgb(152, 105, 76); /* 保持這兩個區段的顏色一致 */
       }
 
       .content {
@@ -89,6 +93,17 @@
         line-height: 1.8;
         margin-top: 10px;
       }
+
+      /* Scratch課程區段背景色及置中配置 */
+      .scratch-section {
+        background-color: rgb(134, 117, 77);
+      }
+
+      .scratch-content {
+        max-width: 600px;
+        text-align: left;
+        margin: 0 auto; /* 讓內容在區段中置中 */
+      }
     </style>
   </head>
   <body>
@@ -98,7 +113,7 @@
     </section>
 
     <!-- AI介紹區塊 -->
-    <section class="section" id="ai-section">
+    <section class="section ai-section" id="ai-section">
       <div class="content ai-content">
         <h2>什麼是 AI 人工智慧？</h2>
         <p>
@@ -109,7 +124,7 @@
     </section>
 
     <!-- AI在日常生活中的應用區塊 -->
-    <section class="section" id="ai-application-section">
+    <section class="section ai-application-section" id="ai-application-section">
       <div class="content ai-application-content">
         <h2>AI在日常生活中的應用</h2>
         <p>語音助理：Apple - Siri</p>
@@ -118,13 +133,30 @@
       </div>
     </section>
 
+    <!-- Scratch課程區塊 -->
+    <section class="section scratch-section" id="scratch-section">
+      <div class="content scratch-content">
+        <h2>Scratch</h2>
+        <p>課程日期：2024 Nov. 8</p>
+        <p>課程時間：13:30 ~ 15:20</p>
+        <p>課程內容：基礎程式設計、程式設計邏輯</p>
+        <p>
+          下載連結：<a href="https://scratch.mit.edu/download" target="_blank" style="color: #fff; text-decoration: underline"
+            >https://scratch.mit.edu/download</a
+          >
+        </p>
+      </div>
+    </section>
+
     <script>
       // 檢測滾動到指定區塊時顯示動畫效果
       window.addEventListener("scroll", function () {
         var aiContent = document.querySelector(".ai-content");
         var aiApplicationContent = document.querySelector(".ai-application-content");
+        var scratchContent = document.querySelector(".scratch-content");
         var aiSection = document.getElementById("ai-section").getBoundingClientRect().top;
         var aiApplicationSection = document.getElementById("ai-application-section").getBoundingClientRect().top;
+        var scratchSection = document.getElementById("scratch-section").getBoundingClientRect().top;
 
         // 當區段進入視窗稍微靠下的位置就觸發動畫
         if (aiSection < window.innerHeight - 150) {
@@ -132,6 +164,9 @@
         }
         if (aiApplicationSection < window.innerHeight - 150) {
           aiApplicationContent.classList.add("show");
+        }
+        if (scratchSection < window.innerHeight - 150) {
+          scratchContent.classList.add("show");
         }
       });
     </script>
