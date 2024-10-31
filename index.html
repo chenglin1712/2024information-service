@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2024 Information Service at Kaohsiung</title>
     <style>
-      /* 全局樣式 */
       body,
       html {
         margin: 0;
@@ -17,7 +16,7 @@
         scroll-behavior: smooth;
       }
 
-      /* 淡入效果的關鍵幀 */
+      /* 淡入效果 */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -62,7 +61,6 @@
         background-color: rgb(152, 105, 76);
       }
 
-      /* 文字過場效果容器，確保版面置中 */
       .flip-text-container {
         position: relative;
         width: 100%;
@@ -70,7 +68,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* 版面置中 */
+        justify-content: center;
         text-align: left;
         overflow: hidden;
       }
@@ -79,24 +77,23 @@
         position: absolute;
         width: 100%;
         backface-visibility: hidden;
-        transition: transform 2.5s ease, opacity 2.5s ease; /* 延長過場動畫時間至 2.5 秒 */
+        transition: transform 2.5s ease, opacity 2.5s ease;
         padding: 20px;
         box-sizing: border-box;
         opacity: 0;
       }
 
-      /* 向上滑動過場效果 */
+      /* 啟動顯示效果 */
       .show {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* 初始位置的偏移 */
+      /* 初始位置 */
       .flippable-text.init-position {
         transform: translateY(50px);
       }
 
-      /* 標題和段落樣式 */
       .flippable-text h2 {
         font-size: 3rem;
         margin: 0 0 20px;
@@ -109,7 +106,7 @@
         margin-top: 10px;
       }
 
-      /* Scratch課程區段背景色 */
+      /* Scratch區段 */
       .scratch-section {
         background-color: rgb(134, 117, 77);
         display: flex;
@@ -118,16 +115,15 @@
         height: 100vh;
       }
 
-      /* Scratch文字段落淡入效果，調整字體大小 */
       .scratch-content {
         max-width: 600px;
         text-align: left;
         margin: 0 auto;
-        font-size: 1.25rem; /* 恢復之前的字體大小 */
+        font-size: 1.25rem;
         line-height: 1.6;
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 1s ease-out, transform 1s ease-out; /* 確保淡入效果正常運行 */
+        transition: opacity 1s ease-out, transform 1s ease-out;
       }
 
       .scratch-content.show {
@@ -164,7 +160,7 @@
       <h1>2024 Information Service<br />at Kaohsiung</h1>
     </section>
 
-    <!-- 文字過場動畫區塊 -->
+    <!-- 什麼是人工智慧AI區段 -->
     <section class="section" id="flip-section">
       <div class="flip-text-container" id="flip-text-container">
         <!-- 「什麼是 AI 人工智慧？」 區塊 -->
@@ -185,9 +181,9 @@
       </div>
     </section>
 
-    <!-- Scratch課程區塊 -->
+    <!-- Scratch區段 -->
     <section class="section scratch-section" id="scratch-section">
-      <div class="content scratch-content" id="scratch-content">
+      <div class="scratch-content" id="scratch-content">
         <h2>Scratch</h2>
         <p>課程日期：2024 Nov. 8</p>
         <p>課程時間：13:30 ~ 15:20</p>
@@ -213,35 +209,47 @@
 
     <script>
       let flipped = false;
+      let scrolledOnce = false;
+      let lastScrollY = 0;
 
       function handleScroll() {
         const flipSection = document.getElementById("flip-section");
-        const scratchSection = document.getElementById("scratch-section");
         const aiText = document.getElementById("ai-text");
         const aiApplicationText = document.getElementById("ai-application-text");
         const scratchContent = document.getElementById("scratch-content");
-
-        const sectionTop = flipSection.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
-        const scratchTop = scratchSection.getBoundingClientRect().top;
+        const flipSectionTop = flipSection.getBoundingClientRect().top;
+        const currentScrollY = window.scrollY;
 
-        // 優化觸發條件，僅在區段接近底部時觸發
-        if (sectionTop < windowHeight / 3.5 && !flipped) {
+        // Detect scroll direction
+        const isScrollingDown = currentScrollY > lastScrollY;
+        lastScrollY = currentScrollY;
+
+        // 當頁面首次滾動時淡入「什麼是 AI 人工智慧？」
+        if (flipSectionTop < windowHeight / 1.5 && !scrolledOnce) {
+          aiText.classList.add("show");
+          scrolledOnce = true;
+        }
+
+        // 當向下滾動且「什麼是 AI 人工智慧？」顯示完時，才切換至「AI在日常生活中的應用」
+        if (scrolledOnce && flipSectionTop < windowHeight / 4 && !flipped && isScrollingDown) {
           aiText.classList.remove("show");
           aiText.classList.add("init-position");
           aiApplicationText.classList.add("show");
-          aiApplicationText.classList.remove("init-position");
           flipped = true;
-        } else if (sectionTop > windowHeight / 1.1 && flipped) {
+        }
+
+        // 如果使用者上滑回到頂端，重置到「什麼是 AI 人工智慧？」區段
+        if (!isScrollingDown && currentScrollY < flipSection.offsetTop) {
           aiApplicationText.classList.remove("show");
           aiApplicationText.classList.add("init-position");
           aiText.classList.add("show");
-          aiText.classList.remove("init-position");
           flipped = false;
+          scrolledOnce = false;
         }
 
-        // Scratch文字段落淡入效果
-        if (scratchTop < windowHeight - 100) {
+        // Scratch區段淡入效果
+        if (scratchContent.getBoundingClientRect().top < windowHeight - 100) {
           scratchContent.classList.add("show");
         }
       }
