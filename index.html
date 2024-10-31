@@ -79,7 +79,7 @@
         position: absolute;
         width: 100%;
         backface-visibility: hidden;
-        transition: transform 0.6s ease, opacity 0.6s ease;
+        transition: transform 2.5s ease, opacity 2.5s ease; /* 延長過場動畫時間至 2.5 秒 */
         padding: 20px;
         box-sizing: border-box;
         opacity: 0;
@@ -118,16 +118,16 @@
         height: 100vh;
       }
 
-      /* Scratch文字段落淡入效果，保持原版面設計 */
+      /* Scratch文字段落淡入效果，增加字體大小 */
       .scratch-content {
         max-width: 600px;
         text-align: left;
         margin: 0 auto;
-        font-size: 1.25rem;
-        line-height: 1.6;
+        font-size: 1.5rem; /* 增加字體大小 */
+        line-height: 1.8;
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out; /* 確保淡入效果正常運行 */
       }
 
       .scratch-content.show {
@@ -225,14 +225,14 @@
         const windowHeight = window.innerHeight;
         const scratchTop = scratchSection.getBoundingClientRect().top;
 
-        // 更靈敏的觸發點，避免過早切換
-        if (sectionTop < windowHeight / 2.5 && !flipped) {
+        // 增加觸發區域和延遲，避免過早切換
+        if (sectionTop < windowHeight / 4 && !flipped) {
           aiText.classList.remove("show");
           aiText.classList.add("init-position");
           aiApplicationText.classList.add("show");
           aiApplicationText.classList.remove("init-position");
           flipped = true;
-        } else if (sectionTop > windowHeight / 1.5 && flipped) {
+        } else if (sectionTop > windowHeight / 1.1 && flipped) {
           aiApplicationText.classList.remove("show");
           aiApplicationText.classList.add("init-position");
           aiText.classList.add("show");
