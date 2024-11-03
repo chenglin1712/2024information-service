@@ -41,7 +41,7 @@
         letter-spacing: 2px;
         opacity: 0;
         animation: fadeIn 1.5s ease-out forwards;
-        flex-direction: column; /* 讓標題和子標題垂直排列 */
+        flex-direction: column;
       }
 
       .title-section h1 {
@@ -51,7 +51,6 @@
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
       }
 
-      /* 新增的子標題樣式 */
       .subtitle {
         font-size: 1.5vw;
         font-weight: normal;
@@ -59,7 +58,6 @@
         letter-spacing: 1px;
       }
 
-      /* 以下保持您之前的樣式設置不變 */
       .section {
         display: flex;
         align-items: center;
@@ -85,19 +83,17 @@
         position: absolute;
         width: 100%;
         backface-visibility: hidden;
-        transition: transform 2.5s ease, opacity 2.5s ease;
+        transition: transform 3s ease, opacity 3s ease;
         padding: 20px;
         box-sizing: border-box;
         opacity: 0;
       }
 
-      /* 啟動顯示效果 */
       .show {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* 初始位置 */
       .flippable-text.init-position {
         transform: translateY(50px);
       }
@@ -114,7 +110,6 @@
         margin-top: 10px;
       }
 
-      /* Scratch區段 */
       .scratch-section {
         background-color: rgb(134, 117, 77);
         display: flex;
@@ -139,7 +134,6 @@
         transform: translateY(0);
       }
 
-      /* 頁尾區域樣式 */
       .footer {
         display: flex;
         justify-content: space-between;
@@ -169,7 +163,7 @@
       <div class="subtitle">- Ming Chuan University -</div>
     </section>
 
-    <!-- 文字過場動畫區塊 -->
+    <!-- 什麼是人工智慧AI區段 -->
     <section class="section" id="flip-section">
       <div class="flip-text-container" id="flip-text-container">
         <!-- 「什麼是 AI 人工智慧？」 區塊 -->
@@ -213,7 +207,7 @@
         12130340@me.mcu.edu.tw<br />
         Copyright © 2024 YuCheng.<br />
         Recommended browsers: Google Chrome, Safari.<br />
-        This page is hosted on GitHub, Vercel.
+        This page is hosted on GitHub,Vercel.
       </div>
     </footer>
 
@@ -236,13 +230,13 @@
         lastScrollY = currentScrollY;
 
         // 當頁面首次滾動時淡入「什麼是 AI 人工智慧？」
-        if (flipSectionTop < windowHeight / 1.5 && !scrolledOnce) {
+        if (flipSectionTop < windowHeight / 1.2 && !scrolledOnce) {
           aiText.classList.add("show");
           scrolledOnce = true;
         }
 
-        // 當向下滾動且「什麼是 AI 人工智慧？」顯示完時，才切換至「AI在日常生活中的應用」
-        if (scrolledOnce && flipSectionTop < windowHeight / 4 && !flipped && isScrollingDown) {
+        // 延後觸發，僅當使用者滾動到接近頁面的底部時才切換至「AI在日常生活中的應用」
+        if (scrolledOnce && flipSectionTop < windowHeight / 6 && !flipped && isScrollingDown) {
           aiText.classList.remove("show");
           aiText.classList.add("init-position");
           aiApplicationText.classList.add("show");
