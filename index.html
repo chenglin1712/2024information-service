@@ -28,7 +28,6 @@
         }
       }
 
-      /* 網頁標題區域樣式 */
       .title-section {
         display: flex;
         align-items: center;
@@ -110,18 +109,28 @@
         margin-top: 10px;
       }
 
-      .scratch-section {
+      /* ChatGPT與Scratch課程區段 */
+      .course-section {
         background-color: rgb(134, 117, 77);
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
+        padding: 40px 20px;
       }
 
-      .scratch-content {
-        max-width: 600px;
+      .course-container {
+        display: flex;
+        max-width: 1100px;
+        width: 100%;
+        padding: 0 40px; /* 增加左右邊距確保間距一致 */
+        justify-content: space-between;
         text-align: left;
-        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      .course-content {
+        width: 48%; /* 控制左右區塊的寬度 */
         font-size: 1.25rem;
         line-height: 1.6;
         opacity: 0;
@@ -129,7 +138,7 @@
         transition: opacity 1s ease-out, transform 1s ease-out;
       }
 
-      .scratch-content.show {
+      .course-content.show {
         opacity: 1;
         transform: translateY(0);
       }
@@ -184,18 +193,31 @@
       </div>
     </section>
 
-    <!-- Scratch課程區段 -->
-    <section class="section scratch-section" id="scratch-section">
-      <div class="scratch-content" id="scratch-content">
-        <h2>Scratch</h2>
-        <p>課程日期：2024 Nov. 8</p>
-        <p>課程時間：13:30 ~ 15:20</p>
-        <p>課程內容：基礎程式設計、程式設計邏輯</p>
-        <p>
-          下載連結：<a href="https://scratch.mit.edu/download" target="_blank" style="color: #fff; text-decoration: underline"
-            >https://scratch.mit.edu/download</a
-          >
-        </p>
+    <!-- ChatGPT與Scratch課程左右排列區段 -->
+    <section class="section course-section" id="course-section">
+      <div class="course-container">
+        <div class="course-content" id="chatgpt-content">
+          <h2>ChatGPT</h2>
+          <p>課程日期：2024 Nov. 8</p>
+          <p>課程時間：13:30 ~ 15:20</p>
+          <p>課程內容：認識ChatGPT、使用ChatGPT搜集資料。</p>
+          <p>
+            課程應用連結：<a href="https://openai.com/chatgpt/overview/" target="_blank" style="color: #fff; text-decoration: underline"
+              >https://openai.com/chatgpt/overview/</a
+            >
+          </p>
+        </div>
+        <div class="course-content" id="scratch-content">
+          <h2>Scratch</h2>
+          <p>課程日期：2024 Nov. 8</p>
+          <p>課程時間：13:30 ~ 15:20</p>
+          <p>課程內容：基礎程式設計、程式設計邏輯</p>
+          <p>
+            下載連結：<a href="https://scratch.mit.edu/download" target="_blank" style="color: #fff; text-decoration: underline"
+              >https://scratch.mit.edu/download</a
+            >
+          </p>
+        </div>
       </div>
     </section>
 
@@ -205,8 +227,8 @@
       <div class="footer-right">
         Author: YuCheng<br />
         12130340@me.mcu.edu.tw<br />
-        Copyright © 2024 YuCheng.<br />
-        Recommended browsers: Google Chrome, Safari.<br />
+        Copyright © 2024 YuCheng. All rights reserved<br />
+        Recommended browsers: Google Chrome, Safari<br />
         This page is hosted on GitHub,Vercel.
       </div>
     </footer>
@@ -220,6 +242,7 @@
         const flipSection = document.getElementById("flip-section");
         const aiText = document.getElementById("ai-text");
         const aiApplicationText = document.getElementById("ai-application-text");
+        const chatgptContent = document.getElementById("chatgpt-content");
         const scratchContent = document.getElementById("scratch-content");
         const windowHeight = window.innerHeight;
         const flipSectionTop = flipSection.getBoundingClientRect().top;
@@ -252,7 +275,10 @@
           scrolledOnce = false;
         }
 
-        // Scratch區段淡入效果
+        // ChatGPT與Scratch課程區段淡入效果
+        if (chatgptContent.getBoundingClientRect().top < windowHeight - 100) {
+          chatgptContent.classList.add("show");
+        }
         if (scratchContent.getBoundingClientRect().top < windowHeight - 100) {
           scratchContent.classList.add("show");
         }
